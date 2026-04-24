@@ -1,0 +1,92 @@
+name: Daily Security Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  security-events: write
+
+jobs:
+  audit:
+    name: Audit quotidien
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+        with: { version: '9' }
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: pnpm audit (dépendances)
+        id: pnpm_audit
+        run: |
+          pnpm audit --audit-level=high --prod --json > audit-result.json || true
+          CRITICAL=$(cat audit-result.json | jq '.metadata.vulnerabilities.critical // 0')
+          HIGH=$(cat audit-result.json | jq '.metadata.vulnerabilities.high // 0')
+          echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
+          echo "high=$HIGH" >> $GITHUB_OUTPUT
+          echo "### pnpm audit" >> $GITHUB_STEP_SUMMARY
+          echo "Critique: $CRITICAL | High: $HIGH" >> $GITHUB_STEP_SUMMARY
+
+      - name: Gitleaks (secrets)
+        uses: gitleaks/gitleaks-action@v2
+        id: gitleaks
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Semgrep SAST
+        id: semgrep
+        uses: semgrep/semgrep-action@v1
+        with:
+          config: >-
+            p/typescript
+            p/nodejs
+            p/security-audit
+            p/owasp-top-ten
+            p/secrets
+        continue-on-error: true
+
+      - name: Snyk
+        id: snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: License compliance
+        run: npx --yes license-checker --production --failOn 'GPL-3.0;AGPL-3.0;AGPL-1.0'
+        continue-on-error: true
+
+      - name: outdated packages
+        run: |
+          echo "### Packages outdated" >> $GITHUB_STEP_SUMMARY
+          pnpm outdated --long 2>&1 | head -40 >> $GITHUB_STEP_SUMMARY || true
+
+      - name: Créer issue si critique
+        if: |
+          steps.pnpm_audit.outputs.critical != '0' ||
+          steps.gitleaks.outcome == 'failure' ||
+          steps.snyk.outcome == 'failure'
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AUDIT_CRITICAL: ${{ steps.pnpm_audit.outputs.critical }}
+          AUDIT_HIGH: ${{ steps.pnpm_audit.outputs.high }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        with:
+          filename: .github/ISSUE_TEMPLATE/security_alert.md
+          update_existing: true
+          search_existing: open

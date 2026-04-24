@@ -1,0 +1,79 @@
+name: Rapport hebdomadaire
+
+on:
+  schedule:
+    - cron: '0 7 * * 1'  # Lundi 07:00 UTC
+  workflow_dispatch:
+
+jobs:
+  report:
+    name: Générer rapport hebdo
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Collecter métriques GitHub
+        id: metrics
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+            // PRs mergées
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'closed',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 50
+            });
+            const mergedPrs = prs.data.filter(pr =>
+              pr.merged_at && new Date(pr.merged_at) > oneWeekAgo
+            );
+
+            // Issues ouvertes tech-debt
+            const techDebt = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'type:tech-debt',
+              state: 'open'
+            });
+
+            // Issues critiques
+            const criticalIssues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'priority:critical',
+              state: 'open'
+            });
+
+            const week = new Date().toISOString().slice(0, 10);
+            const report = `# Rapport hebdo CareWay — ${week}\n\n` +
+              `## PRs mergées cette semaine : ${mergedPrs.length}\n` +
+              mergedPrs.map(pr => `- [#${pr.number}](${pr.html_url}) ${pr.title}`).join('\n') + '\n\n' +
+              `## Dette technique ouverte : ${techDebt.data.length} issues\n` +
+              techDebt.data.slice(0, 10).map(i => `- [#${i.number}](${i.html_url}) ${i.title}`).join('\n') + '\n\n' +
+              `## Issues critiques non résolues : ${criticalIssues.data.length}\n` +
+              criticalIssues.data.map(i => `- [#${i.number}](${i.html_url}) ${i.title}`).join('\n') + '\n\n' +
+              `## Actions recommandées\n` +
+              (techDebt.data.length > 20 ? '⚠️ **Plus de 20 issues de dette technique — prévoir un sprint de nettoyage.**\n' : '') +
+              (criticalIssues.data.length > 0 ? '🔴 **Issues critiques non résolues — action immédiate requise.**\n' : '✅ Aucune issue critique.\n');
+
+            core.setOutput('report', report);
+            core.setOutput('week', week);
+
+      - name: Écrire le rapport
+        run: |
+          mkdir -p docs/weekly-reports
+          echo '${{ steps.metrics.outputs.report }}' > docs/weekly-reports/${{ steps.metrics.outputs.week }}.md
+          git config user.name "Claude Bot"
+          git config user.email "claude-bot@careway-transport.fr"
+          git add docs/weekly-reports/
+          git diff --staged --quiet || git commit -m "docs: rapport hebdo ${{ steps.metrics.outputs.week }}"
+          git push

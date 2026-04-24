@@ -1,0 +1,78 @@
+name: 🚨 Incident production
+description: Incident en cours sur l'environnement de production.
+title: "[INCIDENT] "
+labels: ["type:incident", "priority:critical"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Priorité absolue.** Claude suspend tout autre travail pour traiter cet incident.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Sévérité
+      options:
+        - SEV-1 — prod totalement down, perte de données possible
+        - SEV-2 — fonctionnalité critique KO, impact fort
+        - SEV-3 — fonctionnalité secondaire KO, contournement existant
+        - SEV-4 — dégradation (latence, erreurs intermittentes)
+    validations:
+      required: true
+
+  - type: input
+    id: detected-at
+    attributes:
+      label: Détecté à (UTC)
+      placeholder: "2026-04-23T14:32:00Z"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: detection-source
+    attributes:
+      label: Source de détection
+      options:
+        - Sentry (erreurs)
+        - UptimeRobot (downtime)
+        - Smoke test post-deploy
+        - Better Stack (logs)
+        - Utilisateur
+    validations:
+      required: true
+
+  - type: input
+    id: affected-services
+    attributes:
+      label: Services impactés
+      placeholder: "api.careway.fr, app.careway.fr"
+    validations:
+      required: true
+
+  - type: textarea
+    id: symptoms
+    attributes:
+      label: Symptômes observés
+    validations:
+      required: true
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: Timeline (mise à jour en temps réel)
+      placeholder: |
+        - 14:32 UTC : détection via smoke test
+        - 14:34 UTC : création de cette issue
+        - 14:35 UTC : rollback auto commit a1b2c3d
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: post-mortem
+    attributes:
+      label: Post-mortem (dans les 48h après résolution)
+      options:
+        - label: Cause racine identifiée et documentée
+        - label: Test de non-régression ajouté
+        - label: Runbook mis à jour si applicable
+        - label: ADR ouvert si changement d'architecture justifié

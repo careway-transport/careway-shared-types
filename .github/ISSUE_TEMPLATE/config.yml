@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Plan maître CareWay
+    url: https://github.com/careway-transport/careway-docs/blob/main/PLAN_REFONTE_CAREWAY_V2.md
+    about: Architecture, roadmap, décisions d'architecture.
+  - name: 📚 CLAUDE.md
+    url: https://github.com/careway-transport/careway-docs/blob/main/CLAUDE.md
+    about: Règles et conventions pour les agents IA.
+  - name: 🏛️ ADRs (décisions d'architecture)
+    url: https://github.com/careway-transport/careway-docs/tree/main/adr
+    about: Historique des décisions structurantes.

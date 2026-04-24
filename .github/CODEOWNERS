@@ -1,0 +1,15 @@
+# Code owners — CareWay Transport
+# https://docs.github.com/en/repositories/managing-your-repositories-settings-and-security/managing-repository-settings/managing-a-branch-protection-rule
+
+# Par défaut, Romane est propriétaire de tout.
+# Claude ne peut pas être owner (pas un user GitHub), mais il crée les PR.
+# Romane est auto-assignée reviewer sur toutes les PR risk:high.
+
+* @romanecano
+
+# Fichiers de gouvernance — TOUJOURS review Romane
+/CLAUDE.md @romanecano
+/PLAN_REFONTE_CAREWAY_V2.md @romanecano
+/adr/ @romanecano
+/.github/CODEOWNERS @romanecano
+/.github/workflows/ @romanecano

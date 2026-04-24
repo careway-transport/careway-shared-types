@@ -1,0 +1,60 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.nuxt/
+.output/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Tests
+coverage/
+test-results/
+playwright-report/
+.playwright/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+
+# Prisma
+prisma/migrations/dev/
+
+# TypeScript
+*.tsbuildinfo
+
+# Misc
+.cache/
+tmp/
+temp/
+*.tmp
+*.swp
+
+# Sentry
+.sentryclirc
+
+# Expo (si applicable)
+.expo/
+android/
+ios/

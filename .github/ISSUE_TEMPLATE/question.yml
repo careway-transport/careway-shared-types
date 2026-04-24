@@ -1,0 +1,59 @@
+name: ❓ Question pour Romane
+description: Question qui sort du périmètre CLAUDE.md et nécessite une décision humaine.
+title: "[QUESTION] "
+labels: ["type:question", "needs-romane"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        N'utilise ce template **que** si la question n'est pas couverte par `CLAUDE.md`, le plan maître, ou un ADR existant. Sinon, décide seul et documente.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte
+      description: Sur quel ticket / PR / session tu travailles, et pourquoi cette question surgit.
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question précise
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Options envisagées
+      description: Liste 2 à 3 options concrètes, avec pros/cons. Pas de question ouverte.
+      placeholder: |
+        **Option A** : ...
+        - Pro : ...
+        - Con : ...
+
+        **Option B** : ...
+        - Pro : ...
+        - Con : ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: recommendation
+    attributes:
+      label: Ta recommandation
+      description: Quelle option tu choisirais et pourquoi.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - label: Cette décision bloque un autre travail en cours
+        - label: Cette décision nécessitera un ADR
+        - label: Cette décision a un impact financier
+        - label: Cette décision a un impact réglementaire (RGPD, HDS, Ségur)

@@ -1,0 +1,68 @@
+name: 🔧 Tech Debt
+description: Tracker un raccourci technique pris en connaissance de cause.
+title: "[TECH-DEBT] "
+labels: ["type:tech-debt"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ouvrir ce ticket **chaque fois** qu'un raccourci technique est pris. Obligation CLAUDE.md §14.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Contexte du raccourci
+      description: Dans quelle PR, quel fichier, quelle fonction le raccourci a été pris.
+      placeholder: |
+        PR #42, fichier `src/services/auth.ts`, fonction `validateToken()`.
+        Commentaire code : `// TODO(careway-TD-12): ...`
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Pourquoi ce raccourci
+      description: Contrainte de temps, dépendance externe manquante, incompatibilité, etc.
+    validations:
+      required: true
+
+  - type: textarea
+    id: ideal
+    attributes:
+      label: Solution idéale
+      description: Ce qu'il faudrait faire proprement.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: cost
+    attributes:
+      label: Coût estimé de résolution
+      options:
+        - XS (< 1 h)
+        - S (< 1 jour)
+        - M (1-3 jours)
+        - L (> 3 jours)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: risk
+    attributes:
+      label: Risque si non résolu
+      options:
+        - high — faille sécurité, perte de données possible, blocage évolution
+        - medium — lenteur, bugs occasionnels, difficulté maintenance
+        - low — cosmétique, pas d'impact fonctionnel
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Deadline suggérée
+      description: Phase ou date butoir.
+      placeholder: Phase 1 / 2026-06-30 / Aucune
+    validations:
+      required: false

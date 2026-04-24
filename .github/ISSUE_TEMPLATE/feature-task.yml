@@ -1,0 +1,81 @@
+name: ✨ Feature / Task
+description: Créer un ticket de travail (feature, refactor, doc, infra).
+title: "[TASK] "
+labels: ["type:task"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Utilise ce template pour tout nouveau travail qui n'est pas un bug ni un incident.
+
+  - type: input
+    id: ticket-ref
+    attributes:
+      label: Référence plan
+      description: Si ce ticket correspond à un ticket du plan maître (ex. P0-05, P1-03), l'indiquer.
+      placeholder: P1-03
+    validations:
+      required: false
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type de travail
+      options:
+        - Nouvelle fonctionnalité
+        - Refactor
+        - Documentation
+        - Infrastructure / DevOps
+        - Tests / qualité
+        - Migration / upgrade dépendance
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorité
+      options:
+        - critical — bloque autre chose
+        - high — à faire dans la semaine
+        - medium — à faire dans le mois
+        - low — quand on a le temps
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objectif
+      description: Quel problème ça résout ? Quelle valeur ça apporte ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Critères d'acceptation
+      description: Liste précise de ce qui doit être vrai pour que ce ticket soit "done". Claude ne ferme le ticket que si tous les critères sont prouvés par des tests automatiques.
+      placeholder: |
+        - [ ] L'endpoint `POST /fhir/ServiceRequest` retourne 201 avec un payload FHIR valide
+        - [ ] Un test d'intégration vérifie le cas nominal
+        - [ ] Un test d'intégration vérifie le cas d'erreur "patient inexistant"
+        - [ ] L'OpenAPI est à jour
+    validations:
+      required: true
+
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Notes techniques / contraintes
+      description: Stack à utiliser, patterns à suivre, fichiers concernés, risques anticipés.
+    validations:
+      required: false
+
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dépendances / tickets liés
+      placeholder: "#42, #58"
+    validations:
+      required: false

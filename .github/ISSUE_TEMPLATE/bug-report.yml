@@ -1,0 +1,88 @@
+name: 🐛 Bug report
+description: Signaler un bug observé (Claude ou Romane).
+title: "[BUG] "
+labels: ["type:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci de signaler ce bug. Plus tu donnes de contexte, plus vite Claude peut le reproduire et le corriger.
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Sévérité
+      description: Impact estimé sur les utilisateurs finaux.
+      options:
+        - critical — prod down ou données corrompues
+        - high — fonctionnalité majeure cassée
+        - medium — fonctionnalité mineure cassée, contournement possible
+        - low — cosmétique, UX dégradée
+    validations:
+      required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environnement
+      options:
+        - production
+        - staging / preview
+        - local
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL concernée (si applicable)
+      placeholder: https://api.careway.fr/...
+    validations:
+      required: false
+
+  - type: textarea
+    id: observed
+    attributes:
+      label: Comportement observé
+      description: Ce qui se passe actuellement.
+      placeholder: Quand je fais X, il se passe Y au lieu de Z.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportement attendu
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Étapes de reproduction
+      description: Numérotées, précises, reproductibles.
+      placeholder: |
+        1. Aller sur ...
+        2. Cliquer sur ...
+        3. Observer que ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / erreurs Sentry / captures
+      description: Coller les stack traces, IDs Sentry, requêtes réseau, etc. Masquer toute PII.
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Vérifications préalables
+      options:
+        - label: J'ai vérifié que le bug n'est pas déjà tracké dans une autre issue.
+          required: true
+        - label: J'ai masqué toute PII (noms, emails, RPPS, NSS) dans les logs.
+          required: true
