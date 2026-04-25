@@ -1,4 +1,4 @@
-import type { Resource, Reference, CodeableConcept, Identifier, Annotation } from './base.js';
+import type { Resource, Reference, CodeableConcept, Identifier, Annotation } from './base';
 
 /**
  * FHIR R4 ServiceRequest resource.

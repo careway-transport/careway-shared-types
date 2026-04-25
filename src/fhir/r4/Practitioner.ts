@@ -1,4 +1,4 @@
-import type { Resource, Identifier, HumanName, ContactPoint, CodeableConcept } from './base.js';
+import type { Resource, Identifier, HumanName, ContactPoint, CodeableConcept } from './base';
 
 /**
  * FHIR R4 Practitioner resource.

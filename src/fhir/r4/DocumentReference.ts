@@ -1,4 +1,4 @@
-import type { Resource, Reference, Identifier, CodeableConcept, Attachment } from './base.js';
+import type { Resource, Reference, Identifier, CodeableConcept, Attachment } from './base';
 
 /**
  * FHIR R4 DocumentReference resource.

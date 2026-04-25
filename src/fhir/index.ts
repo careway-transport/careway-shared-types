@@ -1,1 +1,1 @@
-export * from './r4/index.js';
+export * from './r4/index';

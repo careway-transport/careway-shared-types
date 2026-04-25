@@ -6,7 +6,7 @@ import type {
   Address,
   CodeableConcept,
   Reference,
-} from './base.js';
+} from './base';
 
 /**
  * FHIR R4 Patient resource.

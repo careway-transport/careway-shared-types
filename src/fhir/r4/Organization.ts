@@ -1,4 +1,4 @@
-import type { Resource, Identifier, ContactPoint, Address, CodeableConcept } from './base.js';
+import type { Resource, Identifier, ContactPoint, Address, CodeableConcept } from './base';
 
 /**
  * FHIR R4 Organization resource.

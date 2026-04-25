@@ -11,5 +11,5 @@
  *   import type { MissionSummary } from '@careway/shared-types/careway';
  */
 
-export * from './fhir/index.js';
-export * from './careway/index.js';
+export * from './fhir/index';
+export * from './careway/index';
