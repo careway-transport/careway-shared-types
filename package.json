@@ -1,0 +1,42 @@
+{
+  "name": "@careway/shared-types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Types TypeScript FHIR R4 et types métier partagés — CareWay",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./fhir": {
+      "import": "./dist/fhir/index.js",
+      "types": "./dist/fhir/index.d.ts"
+    },
+    "./careway": {
+      "import": "./dist/careway/index.js",
+      "types": "./dist/careway/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "lint": "eslint src/",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/coverage-v8": "^3.0.0",
+    "eslint": "^10.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.4.0",
+    "vitest": "^3.0.0"
+  }
+}

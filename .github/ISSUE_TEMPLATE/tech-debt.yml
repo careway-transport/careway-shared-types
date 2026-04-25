@@ -1,7 +1,7 @@
 name: 🔧 Tech Debt
 description: Tracker un raccourci technique pris en connaissance de cause.
-title: "[TECH-DEBT] "
-labels: ["type:tech-debt"]
+title: '[TECH-DEBT] '
+labels: ['type:tech-debt']
 body:
   - type: markdown
     attributes:

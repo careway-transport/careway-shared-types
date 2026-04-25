@@ -1,0 +1,5 @@
+pnpm-lock.yaml
+CLAUDE.md
+dist/
+coverage/
+node_modules/

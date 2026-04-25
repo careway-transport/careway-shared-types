@@ -1,7 +1,7 @@
 name: 🚨 Incident production
 description: Incident en cours sur l'environnement de production.
-title: "[INCIDENT] "
-labels: ["type:incident", "priority:critical"]
+title: '[INCIDENT] '
+labels: ['type:incident', 'priority:critical']
 body:
   - type: markdown
     attributes:
@@ -24,7 +24,7 @@ body:
     id: detected-at
     attributes:
       label: Détecté à (UTC)
-      placeholder: "2026-04-23T14:32:00Z"
+      placeholder: '2026-04-23T14:32:00Z'
     validations:
       required: true
 
@@ -45,7 +45,7 @@ body:
     id: affected-services
     attributes:
       label: Services impactés
-      placeholder: "api.careway.fr, app.careway.fr"
+      placeholder: 'api.careway.fr, app.careway.fr'
     validations:
       required: true
 

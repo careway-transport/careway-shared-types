@@ -1,7 +1,9 @@
 ## Ticket de référence
+
 Closes #<!-- numéro issue -->
 
 ## Type de changement
+
 - [ ] `feat` — nouvelle fonctionnalité
 - [ ] `fix` — correction de bug
 - [ ] `refactor` — refactoring sans changement fonctionnel
@@ -12,15 +14,18 @@ Closes #<!-- numéro issue -->
 - [ ] `ci` — pipeline CI/CD
 
 ## Niveau de risque
+
 - [ ] `risk:low` — merge automatique après CI verte
 - [ ] `risk:medium` — relecture avant merge
 - [ ] `risk:high` — **attendre OK explicite de Romane dans un commentaire**
 
 ## Résumé des changements
+
 -
 -
 
 ## Preuves automatiques
+
 - CI : <!-- lien run GitHub Actions -->
 - Coverage : <!-- % atteint -->
 - Playwright traces : <!-- lien artefact ou N/A -->
@@ -28,17 +33,21 @@ Closes #<!-- numéro issue -->
 - Smoke tests : <!-- ✅ ❌ N/A -->
 
 ## Impact sur la prod
+
 <!-- Aucun / ou description -->
 
 ## Migration BDD
+
 - [ ] Aucune migration
 - [ ] Migration additive (backward-compatible ✅)
 - [ ] Migration destructive (**risk:high obligatoire**)
 
 ## Dette technique créée
+
 <!-- Aucune / ou issues ouvertes -->
 
 ## Checklist Claude (auto-vérifiée avant ouverture PR)
+
 - [ ] lint → 0 warning
 - [ ] typecheck → 0 erreur
 - [ ] tests → verts, coverage ≥ seuil

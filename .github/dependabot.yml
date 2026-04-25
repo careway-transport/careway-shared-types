@@ -1,18 +1,16 @@
 version: 2
 updates:
   - package-ecosystem: npm
-    directory: "/"
+    directory: '/'
     schedule:
       interval: weekly
       day: monday
-      time: "06:00"
-      timezone: "Europe/Paris"
+      time: '06:00'
+      timezone: 'Europe/Paris'
     open-pull-requests-limit: 5
-    reviewers: []
-    assignees: []
     labels:
-      - "type:chore"
-      - "risk:low"
+      - 'type:chore'
+      - 'risk:low'
     groups:
       dev-dependencies:
         dependency-type: development
@@ -24,14 +22,14 @@ updates:
         update-types:
           - patch
     ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]
+      - dependency-name: '*'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: '/'
     schedule:
       interval: weekly
       day: monday
     labels:
-      - "type:chore"
-      - "risk:low"
+      - 'type:chore'
+      - 'risk:low'
