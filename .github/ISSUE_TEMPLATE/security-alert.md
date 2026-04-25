@@ -2,7 +2,7 @@
 name: 🚨 Security Alert (auto)
 about: Alerte automatique générée par l'audit de sécurité quotidien
 title: "[SECURITY] Vulnérabilité détectée — {{ date | date('YYYY-MM-DD') }}"
-labels: ["priority:critical", "type:security", "auto-generated"]
+labels: ['priority:critical', 'type:security', 'auto-generated']
 assignees: []
 ---
 
@@ -24,18 +24,23 @@ Cet audit est exécuté automatiquement chaque jour à **06:00 UTC** par le work
 <!-- Claude analyse les artefacts du workflow et remplit ici. -->
 
 #### 📦 Dépendances (pnpm audit)
+
 <!-- Coller la sortie pertinente ou un résumé. -->
 
 #### 🔍 Secrets (gitleaks)
+
 <!-- Si détection, lister sans reproduire le secret. Toujours masquer. -->
 
 #### 🛡️ SAST (Semgrep)
+
 <!-- Règles OWASP Top Ten, Node.js, TypeScript. -->
 
 #### 🌐 Supply chain (Snyk)
+
 <!-- Si configuré. Sinon "N/A". -->
 
 #### ⚖️ Licences
+
 <!-- Licences non-autorisées détectées : GPL, AGPL, commerciales restrictives. -->
 
 ### 🎯 Action recommandée
@@ -56,6 +61,7 @@ Cet audit est exécuté automatiquement chaque jour à **06:00 UTC** par le work
 ### 🤖 Traitement par Claude
 
 À la prochaine session, Claude doit :
+
 1. Lire cette issue.
 2. Créer une branche `fix/security-<short-sha>`.
 3. Appliquer les mises à jour / patchs.
@@ -67,6 +73,7 @@ Cet audit est exécuté automatiquement chaque jour à **06:00 UTC** par le work
 ### ⛔ Si Claude ne peut pas corriger
 
 Tagger **@romanecano** avec :
+
 - Diagnostic technique complet
 - Risque pour la prod
 - Options de mitigation court terme

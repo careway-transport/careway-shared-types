@@ -1,7 +1,7 @@
 name: ✨ Feature / Task
 description: Créer un ticket de travail (feature, refactor, doc, infra).
-title: "[TASK] "
-labels: ["type:task"]
+title: '[TASK] '
+labels: ['type:task']
 body:
   - type: markdown
     attributes:
@@ -76,6 +76,6 @@ body:
     id: dependencies
     attributes:
       label: Dépendances / tickets liés
-      placeholder: "#42, #58"
+      placeholder: '#42, #58'
     validations:
       required: false

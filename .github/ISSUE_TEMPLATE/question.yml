@@ -1,7 +1,7 @@
 name: ❓ Question pour Romane
 description: Question qui sort du périmètre CLAUDE.md et nécessite une décision humaine.
-title: "[QUESTION] "
-labels: ["type:question", "needs-romane"]
+title: '[QUESTION] '
+labels: ['type:question', 'needs-romane']
 assignees: []
 body:
   - type: markdown
