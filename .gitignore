@@ -3,7 +3,7 @@ node_modules/
 .pnpm-store/
 
 # Build outputs
-dist/
+# dist/ intentionnellement versionné — package interne GitHub sans registry npm
 build/
 .next/
 out/
