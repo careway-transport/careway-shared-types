@@ -1,9 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  getPatientNss,
-  getPatientDisplayName,
-  PATIENT_NSS_SYSTEM,
-} from './Patient.js';
+import { getPatientNss, getPatientDisplayName, PATIENT_NSS_SYSTEM } from './Patient.js';
 import type { Patient } from './Patient.js';
 
 describe('Patient helpers', () => {
@@ -14,9 +10,7 @@ describe('Patient helpers', () => {
       { system: PATIENT_NSS_SYSTEM, value: '1234567890123' },
       { system: 'https://carewaytransport.fr/fhir/patient-id', value: '42' },
     ],
-    name: [
-      { use: 'official', family: 'Dupont', given: ['Marie', 'Claire'] },
-    ],
+    name: [{ use: 'official', family: 'Dupont', given: ['Marie', 'Claire'] }],
   };
 
   describe('getPatientNss', () => {

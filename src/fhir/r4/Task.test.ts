@@ -17,9 +17,18 @@ describe('isValidTaskTransition', () => {
 
   it('refuse completed → tout autre statut', () => {
     const allStatuses: TaskStatus[] = [
-      'draft', 'requested', 'received', 'accepted', 'rejected',
-      'ready', 'cancelled', 'in-progress', 'on-hold', 'failed',
-      'completed', 'entered-in-error',
+      'draft',
+      'requested',
+      'received',
+      'accepted',
+      'rejected',
+      'ready',
+      'cancelled',
+      'in-progress',
+      'on-hold',
+      'failed',
+      'completed',
+      'entered-in-error',
     ];
     for (const to of allStatuses) {
       expect(isValidTaskTransition('completed', to)).toBe(false);

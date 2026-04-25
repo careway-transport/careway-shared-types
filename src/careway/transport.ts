@@ -111,7 +111,4 @@ export interface TaskCompletedEvent {
   timestamp: string;
 }
 
-export type CarewayEvent =
-  | ServiceRequestCreatedEvent
-  | TaskAcceptedEvent
-  | TaskCompletedEvent;
+export type CarewayEvent = ServiceRequestCreatedEvent | TaskAcceptedEvent | TaskCompletedEvent;

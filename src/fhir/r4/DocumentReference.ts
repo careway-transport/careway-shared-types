@@ -81,9 +81,7 @@ export function createPrescriptionDocumentReference(params: {
     resourceType: 'DocumentReference',
     status: 'current',
     type: {
-      coding: [
-        { system: DOCUMENT_TYPE_SYSTEM, code: DocumentType.PRESCRIPTION_TRANSPORT },
-      ],
+      coding: [{ system: DOCUMENT_TYPE_SYSTEM, code: DocumentType.PRESCRIPTION_TRANSPORT }],
       text: 'Prescription de transport médical',
     },
     subject: { reference: params.patientRef },

@@ -10,12 +10,8 @@ describe('Practitioner helpers', () => {
   const practitioner: Practitioner = {
     resourceType: 'Practitioner',
     id: '456',
-    identifier: [
-      { system: PRACTITIONER_RPPS_SYSTEM, value: '10007855325' },
-    ],
-    name: [
-      { prefix: ['Dr'], family: 'Martin', given: ['Sophie'] },
-    ],
+    identifier: [{ system: PRACTITIONER_RPPS_SYSTEM, value: '10007855325' }],
+    name: [{ prefix: ['Dr'], family: 'Martin', given: ['Sophie'] }],
   };
 
   describe('getPractitionerRpps', () => {

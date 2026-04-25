@@ -120,9 +120,7 @@ export function createTransportServiceRequest(params: {
     subject: { reference: params.patientRef },
     requester: { reference: params.practitionerRef },
     reasonCode: [{ text: params.motifMedical }],
-    ...(params.dateTransport !== undefined
-      ? { occurrenceDateTime: params.dateTransport }
-      : {}),
+    ...(params.dateTransport !== undefined ? { occurrenceDateTime: params.dateTransport } : {}),
     authoredOn: new Date().toISOString(),
     extension: [
       { url: EXTENSION_LIEU_DEPART, valueString: params.lieuDepart },
