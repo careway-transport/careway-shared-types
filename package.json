@@ -2,7 +2,10 @@
   "name": "@careway-transport/shared-types",
   "version": "0.1.1",
   "description": "Types TypeScript FHIR R4 et types métier partagés — CareWay",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
