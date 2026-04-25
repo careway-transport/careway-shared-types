@@ -1,4 +1,4 @@
-name: Daily Security Audit
+﻿name: Daily Security Audit
 
 on:
   schedule:
@@ -27,7 +27,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
 
-      - name: pnpm audit (dépendances)
+      - name: pnpm audit (dÃ©pendances)
         id: pnpm_audit
         run: |
           pnpm audit --audit-level=high --prod --json > audit-result.json || true
@@ -75,7 +75,7 @@ jobs:
           echo "### Packages outdated" >> $GITHUB_STEP_SUMMARY
           pnpm outdated --long 2>&1 | head -40 >> $GITHUB_STEP_SUMMARY || true
 
-      - name: Créer issue si critique
+      - name: CrÃ©er issue si critique
         if: |
           steps.pnpm_audit.outputs.critical != '0' ||
           steps.gitleaks.outcome == 'failure' ||
@@ -87,6 +87,6 @@ jobs:
           AUDIT_HIGH: ${{ steps.pnpm_audit.outputs.high }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         with:
-          filename: .github/ISSUE_TEMPLATE/security_alert.md
+          filename: .github/ISSUE_TEMPLATE/security-alert.md
           update_existing: true
           search_existing: open
