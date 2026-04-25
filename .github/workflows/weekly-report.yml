@@ -19,7 +19,7 @@ jobs:
 
       - name: Collecter métriques GitHub
         id: metrics
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
