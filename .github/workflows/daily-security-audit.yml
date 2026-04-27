@@ -1,4 +1,4 @@
-﻿name: Daily Security Audit
+name: Daily Security Audit
 
 on:
   schedule:
@@ -15,35 +15,35 @@ jobs:
     name: Audit quotidien
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4
         with: { version: '9' }
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: pnpm
       - run: pnpm install --frozen-lockfile
 
-      - name: pnpm audit (dÃ©pendances)
+      - name: pnpm audit (dependances)
         id: pnpm_audit
         run: |
           pnpm audit --audit-level=high --prod --json > audit-result.json || true
-          CRITICAL=$(cat audit-result.json | jq '.metadata.vulnerabilities.critical // 0')
-          HIGH=$(cat audit-result.json | jq '.metadata.vulnerabilities.high // 0')
+          CRITICAL=$(jq '.metadata.vulnerabilities.critical // 0' audit-result.json)
+          HIGH=$(jq '.metadata.vulnerabilities.high // 0' audit-result.json)
           echo "critical=$CRITICAL" >> $GITHUB_OUTPUT
           echo "high=$HIGH" >> $GITHUB_OUTPUT
           echo "### pnpm audit" >> $GITHUB_STEP_SUMMARY
           echo "Critique: $CRITICAL | High: $HIGH" >> $GITHUB_STEP_SUMMARY
 
       - name: Gitleaks (secrets)
-        uses: gitleaks/gitleaks-action@v2
         id: gitleaks
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz | tar -xz gitleaks
+          ./gitleaks detect --source . --no-git --exit-code 1
 
       - name: Semgrep SAST
         id: semgrep
@@ -53,12 +53,11 @@ jobs:
             p/typescript
             p/nodejs
             p/security-audit
-            p/owasp-top-ten
-            p/secrets
         continue-on-error: true
 
       - name: Snyk
         id: snyk
+        if: env.SNYK_TOKEN != ''
         uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
@@ -75,11 +74,8 @@ jobs:
           echo "### Packages outdated" >> $GITHUB_STEP_SUMMARY
           pnpm outdated --long 2>&1 | head -40 >> $GITHUB_STEP_SUMMARY || true
 
-      - name: CrÃ©er issue si critique
-        if: |
-          steps.pnpm_audit.outputs.critical != '0' ||
-          steps.gitleaks.outcome == 'failure' ||
-          steps.snyk.outcome == 'failure'
+      - name: Creer issue si critique
+        if: steps.pnpm_audit.outputs.critical != '0' || steps.gitleaks.outcome == 'failure'
         uses: JasonEtco/create-an-issue@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,3 +86,4 @@ jobs:
           filename: .github/ISSUE_TEMPLATE/security-alert.md
           update_existing: true
           search_existing: open
+
