@@ -86,4 +86,3 @@ jobs:
           filename: .github/ISSUE_TEMPLATE/security-alert.md
           update_existing: true
           search_existing: open
-
